@@ -1,38 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+javascript
+// user.model.js
 
-    <!-- Change set for creating User table -->
-    <changeSet id="create-user-table" author="Vansh">
-        <createTable tableName="User">
-            <column name="UserID" type="INT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="Name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="Email" type="VARCHAR(255)">
-                <constraints unique="true"/>
-            </column>
-            <column name="PhoneNumber" type="VARCHAR(20)">
-                <constraints unique="true"/>
-            </column>
-            <column name="EncryptedPassword" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="IsVerified" type="BOOLEAN" defaultValueBoolean="false">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
+class User {
+  constructor(name, email) {
+    this.name = name;
+    this.email = email;
+  }
 
-    <!-- Change set for adding check constraint -->
-    <!-- Change set for adding check constraint -->
-<changeSet id="add-check-constraint" author="Vansh">
-    <sql>
-        ALTER TABLE User ADD CONSTRAINT chk_User_Email_Phone CHECK (Email IS NOT NULL OR PhoneNumber IS NOT NULL)
-    </sql>
-</changeSet>
-</databaseChangeLog>
+  getName() {
+    return this.name;
+  }
+
+  getEmail() {
+    return this.email;
+  }
+
+  setName(name) {
+    this.name = name;
+  }
+
+  setEmail(email) {
+    this.email = email;
+  }
+}
+
+module.exports = User;
