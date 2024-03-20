@@ -5,17 +5,11 @@ from dtos.user_models import user_signup_dto
 from utils.hashing import hash_password
 from pydantic import EmailStr
 from  helpers.db_helper import commit_to_db
-
+from helpers.validations import validate_user_data
 def create_user(db: Session, user_dto: user_signup_dto):
     
-    if not user_dto.email or "@" not in user_dto.email:
-        raise HTTPException(status_code=400, detail="Invalid or empty email")
+    validate_user_data(user_dto)
     
-    if not user_dto.password:
-        raise HTTPException(status_code=400, detail="Password cannot be empty")
-     
-    if not user_dto.name:
-        raise HTTPException(status_code=400, detail="Name cannot be empty")
     
     hashed_password = hash_password(user_dto.password)
     
