@@ -19,5 +19,10 @@
             </column>
         </createTable>
     </changeSet>
+<!-- Change from user id to id First PULL Request change-->
+    <changeSet id="rename-userid-to-id" author="Vansh">
+        <renameColumn tableName="User" oldColumnName="UserID" newColumnName="ID" columnDataType="INT"/>
+    </changeSet>
+
 
 </databaseChangeLog>
