@@ -1,9 +1,8 @@
-
+# main.py
 from fastapi import FastAPI
+from routes.user import router as user_router  # Import the user router
 
 app = FastAPI()
 
-
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+# Include the user router in your FastAPI application
+app.include_router(user_router)
