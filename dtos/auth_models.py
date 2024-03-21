@@ -3,11 +3,11 @@ from pydantic import BaseModel, validator, EmailStr
 from fastapi import HTTPException
 from datetime import datetime
 
-class user_login(BaseModel):
+class UserLogin(BaseModel):
     email: EmailStr
     password: str
-    created_at: datetime = datetime.now()
-    updated_at: datetime = datetime.now()
+    created_at: datetime
+    updated_at: datetime
 
 class UserModal(BaseModel):
     email:str

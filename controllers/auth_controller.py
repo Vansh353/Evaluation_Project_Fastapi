@@ -3,14 +3,14 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from config.database import get_db
 from models.user_table import User
-from dtos.auth_models import user_login
+from dtos.auth_models import UserLogin
 from utils.hashing import hash_password, verify
 from helpers.token_helper import create_access_token
 from pydantic import EmailStr
 from helpers.validations import validate_user_data
 from helpers.api_helper import APIHelper
 
-def login_user(db: Session, user_dto: user_login):
+def login_user(db: Session, user_dto: UserLogin):
     user = db.query(User).filter(User.email == user_dto.email).first()
     if not user:
         APIHelper.send_error_response("USER_NOT_FOUND")
