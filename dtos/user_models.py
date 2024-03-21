@@ -5,3 +5,5 @@ class user_signup_dto(BaseModel):
     name: str
     password: str
     email: str
+    
+

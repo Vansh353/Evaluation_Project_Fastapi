@@ -13,6 +13,6 @@ router = APIRouter(
 @router.post("/signup")
 def create_user_route(user_dto: user_signup_dto, db: Session = Depends(get_db)):
    return create_user(db, user_dto)
-   
+
 
 

@@ -19,6 +19,17 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="add-is_verified-column" author="Vansh">
+        <addColumn tableName="user">
+            <column name="is_verified" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="remove-is_verified-column" author="Vansh">
+        <dropColumn tableName="user" columnName="is_verified"/>
+    </changeSet>
+
 
 
 </databaseChangeLog>
