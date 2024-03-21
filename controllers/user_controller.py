@@ -23,7 +23,10 @@ def create_user(db: Session, user_dto: user_signup_dto):
     user = User(
         name=user_dto.name,
         email=user_dto.email,
-        password=hashed_password
+        password=hashed_password,
+        created_at=user_dto.created_at,
+        updated_at=user_dto.updated_at
+        
     )
 
     commit_to_db(db, user)

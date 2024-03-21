@@ -30,6 +30,18 @@
         <dropColumn tableName="user" columnName="is_verified"/>
     </changeSet>
 
-
-
+<changeSet id="add-created_at-column" author="Vansh">
+    <addColumn tableName="user">
+        <column name="created_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
+<changeSet id="add-updated_at-column" author="Vansh">
+    <addColumn tableName="user">
+        <column name="updated_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
 </databaseChangeLog>

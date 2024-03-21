@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import DateTime
+from sqlalchemy.sql import func
 
 Base = declarative_base()
 
@@ -10,4 +12,5 @@ class User(Base):
     name = Column(String(255), nullable=False)
     email = Column(String(255), unique=True,nullable=False)
     password = Column(String(255), nullable=False)
- 
+    created_at = Column(DateTime())
+    updated_at = Column(DateTime())
