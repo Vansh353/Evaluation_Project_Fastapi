@@ -6,8 +6,7 @@ from datetime import datetime
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
-    created_at: datetime
-    updated_at: datetime
+  
 
 class UserModal(BaseModel):
     email:str
