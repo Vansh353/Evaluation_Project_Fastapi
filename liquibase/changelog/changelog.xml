@@ -19,6 +19,29 @@
             </column>
         </createTable>
     </changeSet>
+    <changeSet id="add-is_verified-column" author="Vansh">
+        <addColumn tableName="user">
+            <column name="is_verified" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet id="remove-is_verified-column" author="Vansh">
+        <dropColumn tableName="user" columnName="is_verified"/>
+    </changeSet>
 
-
+<changeSet id="add-created_at-column" author="Vansh">
+    <addColumn tableName="user">
+        <column name="created_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
+<changeSet id="add-updated_at-column" author="Vansh">
+    <addColumn tableName="user">
+        <column name="updated_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+    </addColumn>
+</changeSet>
 </databaseChangeLog>

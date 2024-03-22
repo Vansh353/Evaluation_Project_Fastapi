@@ -1,7 +1,8 @@
-from pydantic import BaseModel, validator, EmailStr
-from fastapi import HTTPException
+from datetime import datetime
+from pydantic import BaseModel, Field
 
-class user_signup_dto(BaseModel):
+class UserSignupDto(BaseModel):
     name: str
     password: str
     email: str
+    
