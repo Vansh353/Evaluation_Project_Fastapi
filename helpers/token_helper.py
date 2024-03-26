@@ -1,14 +1,11 @@
-
 from datetime import datetime, timedelta
 import jwt
 from dotenv import load_dotenv
 from dtos.auth_models import UserModal
-from typing import Optional
 from helpers.db_helper import get_user_by_id
 from helpers.api_helper import APIHelper
 import os
 load_dotenv(".env")
-
 
 
 SECRET_KEY=os.getenv("JWT_SECRET") ##secret key to genrate jwt token
