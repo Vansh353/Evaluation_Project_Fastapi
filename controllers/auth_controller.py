@@ -6,8 +6,6 @@ from models.user_table import User
 from dtos.auth_models import UserLogin
 from utils.hashing import hash_password, verify
 from helpers.token_helper import create_access_token
-from pydantic import EmailStr
-from helpers.validations import validate_user_data
 from helpers.api_helper import APIHelper
 
 def login_user(db: Session, user_dto: UserLogin):

@@ -1,17 +1,14 @@
-from typing import Optional
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from dotenv import dotenv_values
-from fastapi import status,HTTPException,Form,File, UploadFile,BackgroundTasks
+from fastapi import status,HTTPException,Form,File
 from models.user_table import User
-from fastapi.templating import Jinja2Templates
-templates = Jinja2Templates(directory="templates")
 import jwt
 import os
 from dotenv import load_dotenv
+from fastapi.templating import Jinja2Templates
+from typing import Optional
 load_dotenv(".env")
-from fastapi_mail import ConnectionConfig
-from dotenv import dotenv_values
-
+templates = Jinja2Templates(directory="templates")
 config_credentials = dotenv_values(".env")
 
 conf = ConnectionConfig(
@@ -27,10 +24,7 @@ conf = ConnectionConfig(
 )
 
 
-from fastapi.templating import Jinja2Templates
-from typing import Optional
 
-templates = Jinja2Templates(directory="templates")
 
 async def send_email(email: str, subject: str, template_name: str, instance: Optional[User] = None, token: Optional[str] = None):
     template_context = {"request": {}}
