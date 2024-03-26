@@ -1,7 +1,4 @@
-from datetime import datetime
 from pydantic import BaseModel, validator, EmailStr
-from fastapi import HTTPException
-from datetime import datetime
 
 class UserLogin(BaseModel):
     email: EmailStr
@@ -19,3 +16,11 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     token: str
+    
+class UserPasswordReset(BaseModel):
+    email: str
+    new_password: str
+    
+class UserForgotPassword(BaseModel):
+    email: str
+    

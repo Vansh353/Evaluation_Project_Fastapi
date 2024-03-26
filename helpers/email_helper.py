@@ -1,12 +1,11 @@
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from dotenv import dotenv_values
-from fastapi import status,HTTPException,Form,File
 from models.user_table import User
 import jwt
-import os
 from dotenv import load_dotenv
 from fastapi.templating import Jinja2Templates
 from typing import Optional
+
 load_dotenv(".env")
 templates = Jinja2Templates(directory="templates")
 config_credentials = dotenv_values(".env")
@@ -17,13 +16,9 @@ conf = ConnectionConfig(
     MAIL_FROM=config_credentials.get('EMAIL', ''),
     MAIL_PORT=587,
     MAIL_SERVER="smtp.gmail.com",
-    MAIL_STARTTLS= True,
-    MAIL_SSL_TLS= False,
-    
-    
+    MAIL_STARTTLS=True,
+    MAIL_SSL_TLS=False
 )
-
-
 
 
 async def send_email(email: str, subject: str, template_name: str, instance: Optional[User] = None, token: Optional[str] = None):
@@ -31,7 +26,7 @@ async def send_email(email: str, subject: str, template_name: str, instance: Opt
 
     if instance is not None:
         token_data = {
-            "id" : instance.id,
+            "id": instance.id,
         }
         token = jwt.encode(token_data, config_credentials["SECRET"], algorithm="HS256")
         template_context["token"] = token
