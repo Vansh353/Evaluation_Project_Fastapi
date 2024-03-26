@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .button {
+            display: inline-block;
+            font-size: 1rem;
+            text-decoration: none;
+            margin: 1rem 0;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            background-color: #0275d8;  /* Corrected color code */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #0255d8; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center; color: #0275d8;">Account Verification</h2>  /* Corrected color code */
+        <p style="text-align: center;">Thanks for choosing seabasket, please click on the button below to verify your account</p>
+        <div style="display: flex; justify-content: center;">
+            <a class="button" href="http://localhost:8000/verification/?token={{ token }}">Verify your email</a>
+        </div>
+        <p style="text-align: center;">Please kindly ignore this message if you did not sign up for an account. Thanks</p>
+    </div>
+</body>
+</html>

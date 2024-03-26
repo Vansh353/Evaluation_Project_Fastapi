@@ -44,4 +44,11 @@
         </column>
     </addColumn>
 </changeSet>
+ <changeSet id="add_verified-column" author="Vansh">
+        <addColumn tableName="user">
+            <column name="is_verified" type="BOOLEAN" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
