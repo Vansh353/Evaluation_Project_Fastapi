@@ -11,7 +11,7 @@ from helpers.db_helper import commit_to_db
 from helpers.validations import validate_user_data
 from helpers.api_helper import APIHelper
 from helpers.email_helper import send_email
-email_list=[]
+templates=Jinja2Templates(directory="templates")
 async def create_user(user_dto: UserSignupDto, db: Session):
     validate_user_data(user_dto)
     existing_user = db.query(User).filter(User.email == user_dto.email).first()
@@ -24,15 +24,15 @@ async def create_user(user_dto: UserSignupDto, db: Session):
         
         password=hashed_password,
     )
-    email_list.append(user_dto.email)
+    
     commit_to_db(db, user)
   
-    await send_email(email_list, user)
+    await send_email(user_dto.email,"Account Veriication","signup.html", user)
   
    
     return APIHelper.send_success_response("User Created Successfully")
 
-templates=Jinja2Templates(directory="templates")
+
 
 async def verify_email(request: Request, token: str, db: Session = Depends(get_db)):
     user = await very_token(token, db)

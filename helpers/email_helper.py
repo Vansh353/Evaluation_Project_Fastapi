@@ -1,8 +1,33 @@
+from typing import Optional
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
 from dotenv import dotenv_values
 from fastapi import status,HTTPException,Form,File, UploadFile,BackgroundTasks
 from models.user_table import User
+from fastapi.templating import Jinja2Templates
 
+templates = Jinja2Templates(directory="templates")
+
+async def send_email(email: str, template_name: str, instance: Optional[User] = None, token: Optional[str] = None):
+    template_context = {"request": {}}
+
+    if instance is not None:
+        token_data = {
+            "id" : instance.id,
+        }
+        token = jwt.encode(token_data, config_credentials["SECRET"], algorithm="HS256")
+        template_context["token"] = token
+
+    template = templates.TemplateResponse(template_name, template_context)
+
+    message = MessageSchema(
+        subject="Account Verification",
+        recipients=[email],
+        body=str(template.body, 'utf-8'),
+        subtype="html"
+    )
+
+    fm = FastMail(conf)
+    await fm.send_message(message=message)
 import jwt
 
 import os
@@ -26,36 +51,27 @@ conf = ConnectionConfig(
 )
 
 
-async def send_email(email,instance:User):
-    token_data = {
-        "id" : instance.id,
-    }
-    token = jwt.encode(token_data, config_credentials["SECRET"],algorithm="HS256")
+from fastapi.templating import Jinja2Templates
+from typing import Optional
 
-    template = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    </head>
-    <body>
-    <div style="display: flex; align-items:center:justify-content:center;flex-direction:coloumn">
-    <h3>Account Verification </h3>
-    <br>
-    <p>Thanks for choosing seabasket, please click on the button below to verify your account</p>
-    <a style="margin-top:1rem; padding:1rem; border-radius:0.5rem; font-size:1rem; text-decoration: none; background:"#027d8; color:white;" href="http://localhost:8000/verification/?token={token}">
-    Verify your email</a>
+templates = Jinja2Templates(directory="templates")
 
-    <p> Please Kindly ignore this message if you did not sign up for an account.Thanks</p>
+async def send_email(email: str, subject: str, template_name: str, instance: Optional[User] = None, token: Optional[str] = None):
+    template_context = {"request": {}}
 
-    </div>
-    </body>
-    </html>
-    """
+    if instance is not None:
+        token_data = {
+            "id" : instance.id,
+        }
+        token = jwt.encode(token_data, config_credentials["SECRET"], algorithm="HS256")
+        template_context["token"] = token
+
+    template = templates.TemplateResponse(template_name, template_context)
 
     message = MessageSchema(
-        subject="Account Verification",
-        recipients=email,
-        body=template,
+        subject=subject,
+        recipients=[email],
+        body=str(template.body, 'utf-8'),
         subtype="html"
     )
 
