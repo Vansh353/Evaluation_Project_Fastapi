@@ -5,7 +5,7 @@ from dtos.auth_models import UserLogin, UserForgotPassword, UserPasswordReset
 from utils.hashing import hash_password, verify
 from fastapi.templating import Jinja2Templates
 from helpers.token_helper import create_access_token
-from utils.hashing import very_token
+from utils.hashing import verify_token_email
 from helpers.api_helper import APIHelper
 from helpers.email_helper import send_email
 
@@ -35,14 +35,14 @@ async def forgot_password(request: UserForgotPassword):
         user = db.execute(select(users_table).where(users_table.c.email == request.email)).fetchone()
         if not user:
             return APIHelper.send_error_response(errorMessageKey="User Not Found")
-        token= await send_email(request.email, "Forgot Password", "forgot_password.html",user)
+        token=await send_email(request.email, "Forgot Password", "forgot_password.html",user)
 
     return APIHelper.send_success_response(data={"token": token}, successMessageKey='Email Sent Successfully')
 
-async def reset_password(request: UserPasswordReset, token: str):
+def reset_password(request: UserPasswordReset, token: str):
     
     with engine.connect() as db:
-        token_data = await very_token(token)
+        token_data = verify_token_email(token)
         user = db.execute(select(users_table).where(users_table.c.id == token_data.id)).fetchone()
         if not user:
             return APIHelper.send_error_response(errorMessageKey="User Not Found")

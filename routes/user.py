@@ -11,11 +11,8 @@ router = APIRouter(tags=['Signup'])
 async def create_user_route(request: UserSignupDto):
    return await create_user(request)
 
-
-
-
 @router.get("/verify-email")
-async def verify_email_route(request: Request, token: str = Depends(get_token)):
-    return await verify_email(request, token)
+def verify_email_route(request: Request, token: str = Depends(get_token)):
+    return  verify_email(request, token)
  
 

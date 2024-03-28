@@ -16,7 +16,7 @@ def hash_password(password: str) -> str:
 def verify(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
-async def very_token(token: str):
+def verify_token_email(token: str):
     with engine.connect() as db:
         try:
             payload = jwt.decode(token, config_credentials['SECRET'],algorithms=['HS256'])

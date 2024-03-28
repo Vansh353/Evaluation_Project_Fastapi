@@ -17,5 +17,5 @@ async def forgot_password_route(request:UserForgotPassword):
     return await forgot_password(request)
 
 @router.post('/reset_password')
-async def reset_password_route(request:UserPasswordReset,token: str = Depends(get_token)):
-    return await reset_password(request,token)
+def reset_password_route(request:UserPasswordReset,token: str = Depends(get_token)):
+    return  reset_password(request,token)
