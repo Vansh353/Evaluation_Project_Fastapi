@@ -31,7 +31,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
 def verify_token(token: str) -> UserModal:
 
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    user_id: int = payload.get("id")
+    user_id: int = payload.get("sub")
     if user_id is None:
         return APIHelper.send_unauthorized_error(errorMessageKey='Unauthorized')
     
