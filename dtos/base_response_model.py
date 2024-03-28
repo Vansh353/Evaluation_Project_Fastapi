@@ -4,12 +4,10 @@ from typing import Any, Optional
 
 # Initializing
 class BaseResponseModel(BaseModel):
-    message: str
-    data: Optional[Any]
+    data: Any
+    message: Optional[str] = None
 
 
 class BaseErrorModel(BaseModel):
     data: Any
     error: Optional[str] = None
-    def dict(self): #to convert it into dict
-        return {"data": self.data, "error": self.error}

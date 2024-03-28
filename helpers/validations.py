@@ -1,11 +1,18 @@
+# validations.py
+
 from fastapi import HTTPException
 
-def validate_user_data(user_dto):
-    if not user_dto.email or "@" not in user_dto.email:
+def validate_email(email: str):
+    if not email or "@" not in email:
         raise HTTPException(status_code=400, detail="Invalid or empty email")
-    
-    if not user_dto.password:
+    return email
+
+def validate_password(password: str):
+    if not password:
         raise HTTPException(status_code=400, detail="Password cannot be empty")
-     
-    if not user_dto.name:
+    return password
+
+def validate_name(name: str):
+    if not name:
         raise HTTPException(status_code=400, detail="Name cannot be empty")
+    return name

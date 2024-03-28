@@ -1,12 +1,18 @@
 from datetime import datetime, timedelta
+from fastapi import Depends
+from fastapi.security import OAuth2PasswordBearer
 import jwt
 from dotenv import load_dotenv
 from dtos.auth_models import UserModal
 from helpers.db_helper import get_user_by_id
 from helpers.api_helper import APIHelper
 import os
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+
+bearer_scheme = HTTPBearer(auto_error=False)
 load_dotenv(".env")
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 SECRET_KEY=os.getenv("JWT_SECRET") ##secret key to genrate jwt token
 ALGORITHM = "HS256"
@@ -27,14 +33,16 @@ def verify_token(token: str) -> UserModal:
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     user_id: int = payload.get("id")
     if user_id is None:
-        APIHelper.send_unauthorized_error(errorMessageKey='Unauthorized')
+        return APIHelper.send_unauthorized_error(errorMessageKey='Unauthorized')
     
     user =get_user_by_id(user_id)
     if user is None:
-        APIHelper.send_unauthorized_error(
+        return APIHelper.send_unauthorized_error(
             errorMessageKey='Unauthorized')
     return UserModal(**user._mapping)
 
+def get_current_user(token: str = Depends(oauth2_scheme)) -> UserModal:
+    return verify_token(token)
 
-
-
+def get_token(credentials: HTTPAuthorizationCredentials = Depends(bearer_scheme)):
+    return credentials.credentials
