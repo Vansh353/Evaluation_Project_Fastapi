@@ -51,4 +51,33 @@
             </column>
         </addColumn>
     </changeSet>
+
+
+        <!-- Change set for creating Product table -->
+    <changeSet id="create-product-table" author="Vansh">
+        <createTable tableName="product">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="price" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rating" type="DECIMAL(3,2)" defaultValue="0"/>
+            <column name="discount" type="DECIMAL(5,2)" defaultValue="0"/>
+            <column name="created_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+        <column name="updated_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
+            <constraints nullable="false"/>
+        </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
